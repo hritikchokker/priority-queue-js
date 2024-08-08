@@ -5,7 +5,7 @@ class Node{
       }
 }
 
-class PriorityQueue {
+class MaxHeapPriorityQueue {
     constructor() {
       this.values = [];
     }
@@ -23,7 +23,7 @@ class PriorityQueue {
     while (idx > 0) {
       let parentIdx = Math.floor((idx - 1) / 2);
       let parent = this.values[parentIdx];
-      if (element.priority >= parent.priority) break;
+      if (element.priority <= parent.priority) break;
       this.values[parentIdx] = element;
       this.values[idx] = parent;
       idx = parentIdx;
@@ -52,15 +52,15 @@ class PriorityQueue {
 
       if (leftChildIdx < length) {
         leftChild = this.values[leftChildIdx];
-        if (leftChild.priority < element.priority) {
+        if (leftChild.priority > element.priority) {
           swap = leftChildIdx;
         }
       }
       if (rightChildIdx < length) {
         rightChild = this.values[rightChildIdx];
         if (
-          (swap === null && rightChild.priority < element.priority) ||
-          (swap !== null && rightChild.priority < leftChild.priority)
+          (swap === null && rightChild.priority > element.priority) ||
+          (swap !== null && rightChild.priority > leftChild.priority)
         ) {
           swap = rightChildIdx;
         }
@@ -74,7 +74,7 @@ class PriorityQueue {
 }
 
 // Test the Priority Queue
-let pq = new PriorityQueue();
+let pq = new MaxHeapPriorityQueue();
 pq.enqueue("common cold", 5);
 pq.enqueue("gunshot wound", 1);
 pq.enqueue("high fever", 4);
